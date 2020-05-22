@@ -1,4 +1,5 @@
-<div class="container">
+
+<div class="container mb-1">
   <header class="jumbotron mb-0 mt-2 shadow">
     <div class="row">
       <img src="../../assets/s_logo.png">
@@ -7,13 +8,13 @@
   </header>
 </div>
 <div class="shadow-lg container">
-  <nav class="navbar bg-dark navbar-dark navbar-expand-sm">
+  <nav class="navbar bg-dark navbar-dark navbar-expand-sm  mb-1">
     <div class="navbar-nav">
       <a class="navbar-item nav-link active" href="#">Home</a>
       <a class="navbar-item nav-link active" href="#">O autorze</a>
     </div>    
   </nav>  
-  <div class="row bg-secondary mx-0 px-2 py-2">
+  <div class="row bg-secondary mx-0 px-2 py-2  mb-1">
     <div class="col">
       
       <form #searchForm="ngForm" class="form-inline  justify-content-center" (ngSubmit)="loadDocs()">
@@ -26,18 +27,39 @@
               {{order.display}}
             </option>
           </select>
-        <button class="form-control mx-2 btn btn-primary" type="submit">Szukaj</button>
+        <button class="form-control mx-2 btn btn-primary" type="submit"><span *ngIf="isLoading" 
+          class="spinner-border spinner-border-sm" role="status" aria-hidden="true">&nbsp; &nbsp;</span>{{btnText}}</button>
       </form>
     </div>
   </div>
-
-  <div class="row bg-light mx-0 px-2 py-2">
-    <span *ngFor="let doc of root?.response.docs">{{doc.abstract}}</span>
-    
-
-    
-
-  </div>
-
-
 </div>
+
+
+<div class="container mb-2">
+  <div class="row-block bg-light shadow-lg">
+    <ul id="list-group">
+      <li *ngFor="let doc of root?.response.docs" class="list-group-item"><div class="media">
+        <div class="media-left align-self-center mx-3">
+            <!--<img class="rounded-circle" src="https://randomuser.me/api/portraits/women/50.jpg">-->
+            <!--<img class="img-fluid" src="../../assets/nyt.jpg"  width="128" height="128">-->
+            <img class="img-fluid" [src]="doc.multimedia[0]?.url != null ? 'https://static01.nyt.com/' + doc.multimedia[0]?.url : '../../assets/nyt.jpg'"  width="128" height="128">
+        </div>
+        <div class="media-body">
+            <h6>{{doc.snippet}}&nbsp;<span class="badge badge-pill badge-primary" *ngIf="(doc.pub_date | date:'yyyy-MM-dd') == (curDate | date:'yyyy-MM-dd')">NOWE</span></h6>
+            <small>{{doc.pub_date | date:'yyyy-MM-dd'}}</small>
+            
+            <p>{{doc.lead_paragraph}}</p><br>
+            <a href={{doc.web_url}} class="stretched-link">Więcej...</a>
+        </div>
+        <!--
+        <div class="media-right align-self-center">
+            <a href="#" class="btn btn-default">Contact Now</a>
+        </div>
+        -->
+    </div></li>
+    </ul>
+  </div>
+</div>
+  
+
+
