@@ -15,17 +15,27 @@
   </nav>  
   <div class="row bg-secondary mx-0 px-2 py-2">
     <div class="col">
-      <form class="form-inline  justify-content-center">
-        <input class="form-control mx-2" type="text" placeholder="Fraza">
-        <input class="form-control mx-2" type="date" placeholder="Data od">
-        <input class="form-control mx-2" type="date" placeholder="Data do">
+      
+      <form #searchForm="ngForm" class="form-inline  justify-content-center" (ngSubmit)="loadDocs()">
+        <input class="form-control mx-2" type="text" name="searchPhrase" placeholder="Fraza" required [(ngModel)]="model.searchPhrase">
+        <input class="form-control mx-2" type="date" name="dateFrom" placeholder="Data od" [(ngModel)]="model.dateFrom">
+        <input class="form-control mx-2" type="date" name="dateTill" placeholder="Data do" [(ngModel)]="model.dateTill">
+        <select class="form-control ml-1" style="width: 130px" id="gender"
+            [(ngModel)]="model.sortOrder" name="sortOrder">
+            <option *ngFor="let order of sortOptions" [value]="order.value">
+              {{order.display}}
+            </option>
+          </select>
         <button class="form-control mx-2 btn btn-primary" type="submit">Szukaj</button>
       </form>
     </div>
   </div>
 
   <div class="row bg-light mx-0 px-2 py-2">
-    <span>sddddddddddddddd</span>
+    <span *ngFor="let doc of root?.response.docs">{{doc.abstract}}</span>
+    
+
+    
 
   </div>
 

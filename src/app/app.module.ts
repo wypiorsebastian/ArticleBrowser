@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ValueComponent } from './value/value.component';
-import {bootstrap} from "bootstrap";
+import { RouterModule } from '@angular/router';
+import { appRoutes } from 'src/routes';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,9 @@ import {bootstrap} from "bootstrap";
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
