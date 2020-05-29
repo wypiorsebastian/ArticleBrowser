@@ -18,11 +18,12 @@ export class NytapiService {
 
   getDocs(searchPhrase: string,
           dateFrom: string,
-          dateTill: string): Observable<Root> {
+          dateTill: string,
+          sortOrder: string): Observable<Root> {
     this.key = environment.apiKey;
     // tslint:disable-next-line: max-line-length
     //return this.http.get<Root>('https://api.nytimes.com/svc/search/v2/articlesearch.json?q=election&api-key=DuzN6GWQ9VGAfWA0fXGHKGuw6qSOcFqA',
     return this.http.get<Root>('https://api.nytimes.com/svc/search/v2/articlesearch.json', 
-    {params: {q: searchPhrase, 'api-key': this.key, begin_date: dateFrom, end_date: dateTill}});
+    {params: {q: searchPhrase, 'api-key': this.key, begin_date: dateFrom, end_date: dateTill, sort: sortOrder}});
   }
 }

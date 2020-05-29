@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   model: any = {};
   root: Root;
   isLoading: boolean;
-  btnText = '  Szukaj';
+  btnText = 'Szukaj';
   curDate = new Date();
 
   // tslint:disable-next-line: max-line-length
@@ -37,16 +37,19 @@ export class HomeComponent implements OnInit {
     this.curDate.setDate(this.curDate.getDate() - 1 );
     this.api.getDocs(this.model.searchPhrase,
       this.pipe.transform(this.model.dateFrom, 'yyyyMMdd'),
-      this.pipe.transform(this.model.dateTill, 'yyyyMMdd')).subscribe((root: Root) => {
+      this.pipe.transform(this.model.dateTill, 'yyyyMMdd'),
+      this.model.sortOrder).subscribe((root: Root) => {
       this.root = root;
       this.isLoading = false;
       this.btnText = 'Szukaj';
-      if (root.response.docs.length === 0) {
-        this.alertify.message('Nie znaleziono żadnych artykułów');
+      if (this.root.response.docs.length === 0){
+        this.alertify.warning('Nie znaleziono wyników');
       }
     }, error => {
+      this.alertify.error('Wystąpił błąd połączenia');
       console.log(error);
       this.isLoading = false;
+      this.btnText = 'Szukaj';
     });
   }
 

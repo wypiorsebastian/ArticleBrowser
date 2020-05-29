@@ -5,15 +5,15 @@
         
         <form #searchForm="ngForm" class="form-inline  justify-content-center" (ngSubmit)="loadDocs()">
           <input class="form-control mx-2" type="text" name="searchPhrase" placeholder="Fraza" required [(ngModel)]="model.searchPhrase">
-          <input class="form-control mx-2" type="date" name="dateFrom" placeholder="Data od" [(ngModel)]="model.dateFrom">
-          <input class="form-control mx-2" type="date" name="dateTill" placeholder="Data do" [(ngModel)]="model.dateTill">
+          <input class="form-control mx-2" type="date" name="dateFrom" placeholder="Data od" required [(ngModel)]="model.dateFrom">
+          <input class="form-control mx-2" type="date" name="dateTill" placeholder="Data do" required  [(ngModel)]="model.dateTill">
           <select class="form-control ml-1" style="width: 130px" id="gender"
-              [(ngModel)]="model.sortOrder" name="sortOrder">
-              <option *ngFor="let order of sortOptions" [value]="order.value">
+              [(ngModel)]="model.sortOrder" name="sortOrder" required>
+              <option *ngFor="let order of sortOptions"  [value]="order.value">
                 {{order.display}}
               </option>
             </select>
-          <button class="form-control mx-2 btn btn-primary" type="submit"><span *ngIf="isLoading" 
+          <button [disabled]="!searchForm.valid" class="form-control mx-2 btn btn-primary" type="submit"><span *ngIf="isLoading" 
             class="spinner-border spinner-border-sm" role="status" aria-hidden="true">&nbsp; &nbsp;</span>{{btnText}}</button>
         </form>
       </div>
