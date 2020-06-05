@@ -4,12 +4,12 @@
       <div class="col">
         
         <form #searchForm="ngForm" class="form-inline  justify-content-center" (ngSubmit)="loadDocs()">
-          <input class="form-control mx-2" type="text" name="searchPhrase" placeholder="Fraza" required [(ngModel)]="model.searchPhrase">
-          <input class="form-control mx-2" type="date" name="dateFrom" placeholder="Data od" required [(ngModel)]="model.dateFrom">
-          <input class="form-control mx-2" type="date" name="dateTill" placeholder="Data do" required  [(ngModel)]="model.dateTill">
-          <select class="form-control ml-1" style="width: 130px" id="gender"
-              [(ngModel)]="model.sortOrder" name="sortOrder" required>
-              <option *ngFor="let order of sortOptions"  [value]="order.value">
+          <input class="form-control mx-2" [ngClass]="{'testVal': searchPhrase.touched && !searchPhrase.valid}" type="text" name="searchPhrase" #searchPhrase="ngModel" placeholder="Fraza" required [(ngModel)]="model.searchPhrase">
+          <input class="form-control mx-2" [ngClass]="{'testVal': dateFrom.touched && !dateFrom.valid}" #dateFrom="ngModel" type="date" name="dateFrom" placeholder="Data od" required [(ngModel)]="model.dateFrom">
+          <input class="form-control mx-2" [ngClass]="{'testVal': dateTill.touched && !dateTill.valid}" #dateTill="ngModel" type="date" name="dateTill" placeholder="Data do" required  [(ngModel)]="model.dateTill">
+          <select class="form-control ml-1" style="width: 130px" id="gender" 
+              [(ngModel)]="model.sortOrder" [ngClass]="{'testVal': sortOrder.touched && !sortOrder.valid}" name="sortOrder" #sortOrder="ngModel" required [value]="option">
+              <option *ngFor="let order of sortOptions; let i = index"  [value]="order.value" [selected]="i==0">
                 {{order.display}}
               </option>
             </select>
@@ -19,6 +19,7 @@
       </div>
     </div>
   </div>
+  
   
   
   <div class="container mb-2">
